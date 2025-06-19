@@ -2,31 +2,61 @@
 
 @section('content')
     <h1 class="text-center my-4">Send your feedback</h1>
-    <form action="">
+
+    @include('templates.errors')
+
+    <x-message.success />
+
+    <form action={{route('sendFeedback')}} method="POST">
+        @csrf
         <div class="row mb-3">
             <div class="col">
                 <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"
+                        placeholder="Username" aria-label="Username" value="{{ old('username') }}">
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             </div>
             <div class="col">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
-                    <input type="tel" id="phone" name="phone" class="form-control phone"
-                        placeholder="+380 (__) ___-____" aria-label="Phone Number">
+                    <input type="tel" id="phone" name="phone"
+                        class="form-control phone @error('phone') is-invalid @enderror" placeholder="+38(XXX) XX XX XXX"
+                        aria-label="Phone Number" value="{{ old('phone') }}">
+                    @error('phone')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             </div>
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon2"><i class="bi bi-envelope-fill"></i></span>
-            <input type="text" class="form-control" placeholder="example@mail.com" aria-label="Email">
+            <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+            <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
+                placeholder="example@mail.com" aria-label="Email" value="{{ old('email') }}">
+            @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="input-group mb-4">
             <span class="input-group-text">Message</span>
-            <textarea class="form-control" rows="4" aria-label="Message"></textarea>
+            <textarea class="form-control @error('message') is-invalid @enderror" name="message" rows="4"
+                aria-label="Message">{{ old('message') }}</textarea>
+            @error('message')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="d-flex justify-content-center">
