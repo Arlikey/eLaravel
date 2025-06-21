@@ -1,0 +1,55 @@
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 3rem;
+}
+
+.movie-card {
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-card:hover {
+    transform: scale(1.03);
+    background-color: #222222;
+}
+
+.movie-card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+}
+
+.movie-title {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    line-height: 1.4;
+    height: calc(1.4em * 2 + 0.8rem);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    word-break: break-word;
+    -webkit-box-orient: vertical;
+}
+
+iframe {
+    width: 100%;
+    max-width: 900px;
+    height: 506px;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}

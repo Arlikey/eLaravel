@@ -1,7 +1,7 @@
 @extends('templates.main-boilerplate')
 
 @section('content')
-    <h1 class="text-center my-4">Send your feedback</h1>
+    <h1 class="text-center my-4">Contact Us</h1>
 
     @include('templates.errors')
 
@@ -60,7 +60,7 @@
         </div>
 
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2">
+            <button type="submit" class="btn btn-outline-primary d-flex align-items-center gap-2 px-4 py-2">
                 <span>Send</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-send-fill" viewBox="0 0 16 16">

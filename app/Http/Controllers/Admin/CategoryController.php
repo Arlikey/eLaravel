@@ -33,10 +33,21 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'nullable|min:8'
+            'description' => 'nullable|min:8',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ]);
 
-        Category::create($request->all());
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+        }
+
+        Category::create([
+            'name'=> $request->name,
+            'description'=> $request->description,
+            'image'=> $imagePath
+        ]);
 
         return redirect()->route('categories.index');
     }

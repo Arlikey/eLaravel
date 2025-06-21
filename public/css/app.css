@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: sans-serif;
 }
 
 main {
@@ -16,6 +17,14 @@ nav {
     letter-spacing: 0.075em;
 }
 
+.logo path {
+    transition: 0.2s ease-in-out;
+}
+
+.logo:hover path {
+    fill: #fbbf24;
+}
+
 .main-footer {
     text-align: center;
     color: #dee2e6;
@@ -25,4 +34,72 @@ nav {
     align-items: center;
     border-top: 1px solid #343a4080;
     padding: 1rem 0;
+}
+
+main {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.container {
+    margin-block: 4rem;
+}
+
+header {
+    background-color: #1c1c1f;
+}
+
+a {
+    color: #fbbf24;
+    text-decoration: none;
+    transition: 0.1s ease-in-out;
+}
+
+a:hover {
+    color: #f59e0b;
+}
+
+.nav-item:hover a {
+    transform: scale(1.05);
+}
+
+.btn-outline-primary {
+    color: #fbbf24;
+    border-color: #fbbf24;
+    transition: 0.2s ease-in-out;
+}
+
+.btn-outline-primary:hover {
+    color: #000000;
+    background-color: #f59e0b;
+    border-color: #f59e0b;
+}
+
+[data-bs-theme="dark"] {
+    /* Основные цвета */
+    --bs-body-bg: #0e0e10;
+    --bs-body-color: #e0e0e0;
+
+    /* Навигация и фоновая подсветка */
+    --bs-secondary-bg: #1c1c1f;
+    --bs-tertiary-bg: #2a2a2d;
+
+    /* Цвет текста */
+    --bs-secondary-color: #9ca3af;
+    --bs-link-color-rgb: #fbbf24;
+    --bs-link-hover-color: #f59e0b;
+
+    /* Цвета кнопок и акцентов */
+    --bs-primary: #fbbf24;
+    --bs-primary-text-emphasis: #fbbf24;
+    --bs-primary-bg-subtle: #2b2a1c;
+    --bs-primary-border-subtle: #f59e0b;
+
+    /* Границы и разделители */
+    --bs-border-color: #2a2a2d;
+    --bs-border-color-translucent: rgba(255, 255, 255, 0.05);
+
+    /* Подсветка */
+    --bs-highlight-bg: #1a1a1d;
+    --bs-highlight-color: #e0e0e0;
 }

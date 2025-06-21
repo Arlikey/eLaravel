@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('home');
-Route::get('/students', [MainController::class, 'students'])->name('students');
-Route::post('/students', [MainController::class, 'registerStudent'])->name('registerStudent');
+Route::get('/movies/{id}', [MainController::class, 'movies'])->name('movies');
+Route::get('/movies/{id}/{movieId}', [MainController::class, 'movieDetails'])->name('movieDetails');
 Route::get('/contacts', [MainController::class, 'contacts'])->name('contacts');
 Route::post('/contacts', [MainController::class, 'sendFeedback'])->name('sendFeedback');
+
+Route::get('/reviews', [MainController::class, 'reviews'])->name('reviews');
+Route::post('/reviews', [MainController::class, 'postReview'])->name('postReview');
 
 Route::resource('admin/categories', CategoryController::class);

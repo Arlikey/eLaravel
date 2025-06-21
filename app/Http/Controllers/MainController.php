@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Rules\ValidPassword;
+use App\Models\Category;
+use App\Models\Review;
 use App\Rules\ValidPhoneFormat;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class MainController extends Controller
 {
     public function index()
     {
-        $title = 'Home';
+        $categories = Category::all();
 
-        return view("index", compact("title"));
+        return view("index", compact('categories'));
     }
 
     public function contacts()
@@ -32,63 +32,39 @@ class MainController extends Controller
 
         return redirect()->back()->with('success', 'Feedback successfully sent!');
     }
-    public function students()
+
+    public function reviews()
     {
-        $genders = [
-            'Male',
-            'Female',
-            'Other'
-        ];
-        $departments = [
-            'CSE',
-            'IT',
-            'ECE',
-            'Civil',
-            'Mech'
-        ];
-        $courses = [
-            'Web Technologies',
-            'Data Structures',
-            'Digital Electronics',
-            'Structural Analysis',
-            'Thermodynamics',
-            'Embedded Systems',
-            'Data Mining',
-            'Cybersecurity'
-        ];
-        return view("students", compact('departments', 'courses', 'genders'));
+        $reviews = Review::take(10)->get();
+        return view("reviews", compact('reviews'));
     }
 
-    public function registerStudent(Request $request)
+    public function postReview(Request $request)
     {
         $request->validate([
-            'last-name' => 'required|string|max:36',
-            'first-name' => 'required|string|max:36',
-            'fathers-name' => 'required|string|max:36',
-            'date-of-birth' => [
-                'required',
-                'date',
-                'before:-18 years'
-            ],
-            'email' => 'required|email',
-            'phone-number' => [
-                'required',
-                new ValidPhoneFormat
-            ],
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-                new ValidPassword,
-            ],
-            'student-gender' => 'required',
-            'student-department' => 'required',
-            'student-course' => 'required',
-            'student-photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'city' => 'required|string|max:50',
-            'address' => 'required|string|max:100'
+            'username' => 'required|string|max:50',
+            'comment' => 'required|string|max:500',
+            'satisfaction' => 'required|integer|between:1,3'
         ]);
 
-        return redirect()->back()->with('success', value: 'Students successfully registered!');
+        Review::create($request->all());
+
+        return redirect()->back()->with('success', 'Review posted successfully!');
+    }
+
+    public function movies($id)
+    {
+        $category = Category::findOrFail($id);
+        $movies = $category->movies->take(10);
+
+        return view("movies", compact('category', 'movies'));
+    }
+
+    public function movieDetails($id, $movieId)
+    {
+        $category = Category::findOrFail($id);
+        $movie = $category->movies()->findOrFail($movieId);
+
+        return view("movie", compact('category', 'movie'));
     }
 }
