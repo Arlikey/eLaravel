@@ -35,11 +35,11 @@
                         <label for="" class="form-label">How satisfied are you with our website?</label>
                         <div class="input-group form-check ps-0 emoji-radio">
                             <input type="radio" class="btn-check" name="satisfaction" id="unsatisfied" value="1"
-                                autocomplete="off" checked>
+                                autocomplete="off">
                             <label class="btn fs-2 text-danger" for="unsatisfied"><i
                                     class="bi bi-emoji-frown-fill"></i></label>
                             <input type="radio" class="btn-check" name="satisfaction" id="neutral" value="2"
-                                autocomplete="off" checked>
+                                autocomplete="off">
                             <label class="btn fs-2 text-warning" for="neutral"><i
                                     class="bi bi-emoji-neutral-fill"></i></label>
                             <input type="radio" class="btn-check" name="satisfaction" id="satisfied" value="3"

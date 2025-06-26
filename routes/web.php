@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ActorController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +27,11 @@ Route::post('/contacts', [MainController::class, 'sendFeedback'])->name('sendFee
 Route::get('/reviews', [MainController::class, 'reviews'])->name('reviews');
 Route::post('/reviews', [MainController::class, 'postReview'])->name('postReview');
 
-Route::resource('admin/categories', CategoryController::class);
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('actors', ActorController::class);
+    Route::resource('movies', MovieController::class);
+    Route::resource('reviews', ReviewController::class);
+});
+
+Auth::routes();

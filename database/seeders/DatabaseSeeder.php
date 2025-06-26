@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Actor;
 use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,10 +18,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'bob@example.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'admin'
+        ]);
 
 
         $categories = [
@@ -52,18 +56,24 @@ class DatabaseSeeder extends Seeder
             ['The Exorcist', 'A mother seeks the help of two priests to save her daughter from demonic possession.', 'movies/the_exorcist.jpg', 'https://www.youtube.com/watch?v=YDGw1MTEe9k', 'Horror'],
         ];
 
+        $actors = Actor::factory()->count(15)->create();
+
         foreach ($movies as [$title, $description, $image, $url, $categoryName]) {
             $category = Category::where('name', $categoryName)->first();
 
             if ($category) {
-                Movie::create([
+                $movie = Movie::create([
                     'title' => $title,
                     'description' => $description,
                     'image' => $image,
                     'url' => $url,
                     'category_id' => $category->id,
                 ]);
+
+                $randomActors = $actors->random(rand(3, 5));
+                $movie->actors()->attach($randomActors);
             }
         }
+
     }
 }

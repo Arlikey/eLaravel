@@ -1,4 +1,4 @@
-@extends('templates.main-boilerplate')
+@extends('templates.admin-boilerplate')
 
 @section('content')
     <h1>Create Category</h1>

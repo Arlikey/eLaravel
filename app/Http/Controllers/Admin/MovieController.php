@@ -13,7 +13,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::with(['category:id,name', 'actors:fullname'])->paginate(5);
+        return view('admin.movies.index', compact('movies'));
     }
 
     /**

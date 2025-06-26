@@ -10,7 +10,8 @@ class Movie extends Model
 {
     use HasFactory;
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
@@ -19,5 +20,10 @@ class Movie extends Model
         return Attribute::make(
             get: fn($image) => $image ? $image : 'images/no-image.png',
         );
+    }
+
+    public function actors()
+    {
+        return $this->belongsToMany(Actor::class);
     }
 }
