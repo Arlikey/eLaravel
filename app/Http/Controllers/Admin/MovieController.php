@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Actor;
+use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,9 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $actors = Actor::all();
+        return view('admin.movies.create', compact('categories', 'actors'));
     }
 
     /**
@@ -30,7 +34,32 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'trailer' => 'nullable',
+            'title' => 'required',
+            'description' => 'nullable|min:8',
+            'category' => 'required',
+            'actors' => 'required'
+        ]);
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('movies', 'public');
+        }
+
+        $movie = Movie::create([
+            'image' => $imagePath,
+            'trailer' => $request->url,
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category
+        ]);
+
+        $movie->actors()->syncWithoutDetaching($request->actors);
+
+        return redirect()->route('movies.index');
     }
 
     /**
