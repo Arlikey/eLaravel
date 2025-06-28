@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\Category;
 use App\Models\Review;
 use App\Rules\ValidPhoneFormat;
 use Illuminate\Http\Request;
+use Mail;
 
 class MainController extends Controller
 {
@@ -29,6 +31,8 @@ class MainController extends Controller
             'message' => 'required',
             'phone' => ['required', new ValidPhoneFormat]
         ]);
+
+        Mail::to('arkeyfast@gmail.com')->send(new SendMail($request->all()));
 
         return redirect()->back()->with('success', 'Feedback successfully sent!');
     }

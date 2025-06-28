@@ -33,12 +33,24 @@
                 <div class="d-flex flex-column align-items-center">
                     <ul class="navbar-nav mb-2 mb-lg-0 text-center gap-4">
                         <li class="nav-item">
-                            <a class="d-flex flex-column align-items-center" aria-current="page"
-                                href="{{ route('home') }}"><i class="bi bi-house fs-5"></i>Home</a>
+                            <a class="d-flex flex-column align-items-center {{ Route::is('home') ? 'active' : '' }}"
+                                aria-current="page" href="{{ route('home') }}"><i class="bi bi-house fs-5"></i>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="d-flex flex-column align-items-center" aria-current="page"
-                                href="{{ route('contacts') }}"><i class="bi bi-question-lg fs-5"></i>Contacts</a>
+                            <a class="d-flex flex-column align-items-center {{ Route::is('contacts') ? 'active' : '' }}"
+                                aria-current="page" href="{{ route('contacts') }}"><i
+                                    class="bi bi-question-lg fs-5"></i>Contacts</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach ($categories_share as $category_share)
+                                    <li><a class="dropdown-item" href="#">{{ $category_share->name }}</a></li>
+                                @endforeach
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -66,6 +78,12 @@
                             </li>
                         @endif
                     @else
+                        @admin
+                            <li class="nav-item">
+                                <a href="{{ route('categories.index') }}">Admin</a>
+                            </li>
+                        @endadmin
+                        
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

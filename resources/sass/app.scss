@@ -64,6 +64,10 @@ a {
     transition: 0.1s ease-in-out;
 }
 
+.active {
+    border-bottom: 2px solid #f59e0b
+}
+
 a:hover {
     color: #f59e0b;
 }
